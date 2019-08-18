@@ -1,7 +1,19 @@
+/*
+動作不明
+*/
 function easing(x) {
   return x;
 }
 
+/*
+MapクラスからPlantsクラスを作成 
+※Mapクラス
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Map
+※Setメソッド
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Map/set
+※Deleteメソッド
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Map/delete
+*/
 class Plants extends Map {
   add(plant) {
     this.set(plant.id, plant);
@@ -11,6 +23,21 @@ class Plants extends Map {
     this.delete(plant.id);
     this.count();
   }
+  /*
+  下記 plant数数えてるのはわかるけど、何してんのこれ。
+  ※for ... of 文
+  https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/for...of
+
+  　for (variable of iterable) {
+  　　statement
+　　}
+  variable：それぞれの反復処理において、別々のプロパティの値が variable に代入されます。
+　iterable：列挙可能なプロパティに対して、反復処理を行うオブジェクトです。
+  
+　※Valuesメソッド
+　https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Map/values
+  */ 
+
   // 近接生物数、自身を含む
   count() {
     for (const plant of this.values()) {
@@ -38,6 +65,11 @@ class Plants extends Map {
   }
 }
 
+/*
+constructor メソッドは、class で作成されたオブジェクトの生成と初期化のための特殊なメソッドです。
+※constructorメソッド
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Classes/constructor
+*/
 class Plant {
   constructor(p) {
     this.p = p;
@@ -58,9 +90,32 @@ class Plant {
     } else {
       this.size -= 2;
     }
+    /*
+    削除条件追加するならここかな？
+    マウスオーバーしたものを衰弱させるとか可能……？
+    ・マウスカーソルの位置取得
+    ・plantの位置取得……？
+    ・plant、マウスカーソルの位置が同じであればsize = 0
+    */
   }
+
+  /*
+　※fillメソッド
+　https://p5js.jp/reference/#/p5/fill
+　
+  ※circleメソッド
+  https://p5js.org/reference/#/p5/circle
+  */
   draw() {
-    fill('#912376');
+    /*
+    追加。plantの色をランダムに生成。目にやさしくない。後日修正
+    ※参考
+    https://qiita.com/_shimizu/items/e3826359b328974c9911
+    */
+    function colorGen(){ 
+      return '#'+Math.floor(Math.random()*16777215).toString(16); 
+    }
+    fill(colorGen());
     circle(this.p.x, this.p.y, this.size);
   }
 }
